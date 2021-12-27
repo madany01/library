@@ -90,7 +90,7 @@ function addBookToLibrary(bookData) {
 
 
 function renderBook(book) {
-	table.tBodies[1].insertAdjacentHTML('beforeend', `
+	table.tBodies[0].insertAdjacentHTML('beforeend', `
 		<tr data-book-id="${book.id}">
 		<td>${book.title} </td>
 		<td>${book.author} </td>
