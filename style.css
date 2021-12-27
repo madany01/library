@@ -274,7 +274,6 @@ input {
 }
 
 input[type="checkbox"] {
-    justify-self: start;
     transform: scale(1.5);
 }
 
