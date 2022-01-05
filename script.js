@@ -1,30 +1,25 @@
 'use strict'
 
+class Book {
+	static booksCounter = 0
 
-function Book(title, author, numPages, isRead) {
-	this.id = Book.booksCounter++
-	this.title = title
-	this.author = author
-	this.numPages = Number(numPages)
-	this.isRead = Boolean(isRead)
+	constructor(title, author, numPages, isRead) {
+		this.id = Book.booksCounter++
+		this.title = title
+		this.author = author
+		this.numPages = Number(numPages)
+		this.isRead = Boolean(isRead)
+	}
+
+	toggleReadStatus() {
+		this.isRead = !this.isRead
+		return this
+	}
+
+	info() {
+		return `${this.title}, ${this.author}, ${this.numPages}, ${this.isRead ? 'read' : 'not read yet'}`
+	}
 }
-
-
-Book.booksCounter = 0
-
-
-Book.prototype.toggleReadStatus = function () {
-	this.isRead = !this.isRead
-	return this
-}
-
-
-
-Book.prototype.info = function () {
-	return `${this.title}, ${this.author}, ${this.numPages}, ${this.isRead ? 'read' : 'not read yet'}`
-}
-
-
 
 
 const modalOverlay = document.querySelector('.modal-overlay')
