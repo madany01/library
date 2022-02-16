@@ -1,49 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Library</title>
+		<link rel="stylesheet" href="style.css" />
+		<script src="script.js" defer></script>
+	</head>
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Library</title>
-	<link rel="stylesheet" href="style.css">
-	<script src="script.js" defer></script>
-</head>
-
-<body>
-	<header>Library</header>
-	<div class="modal-overlay d-none"></div>
-	<div class="modal-ctr d-none">
-		<div class="icon">🔴</div>
-		<div class="right">
-			<div class="title">Delete Confirmation
-				<span class="close-icon">✖</span>
-			</div>
-			<div class="content-ctr">
-				<div class="content">
-					Are you sure you want to delete &quot;<span class="item-name">item</span>&quot; ?
+	<body>
+		<header>Library</header>
+		<div class="modal-overlay d-none"></div>
+		<div class="modal-ctr d-none">
+			<div class="icon">🔴</div>
+			<div class="right">
+				<div class="title">
+					Delete Confirmation
+					<span class="close-icon">✖</span>
 				</div>
-				<div class="btns-ctr">
-					<button class="confirm">Yes, Delete</button>
-					<button class="cancel">Cancel</button>
+				<div class="content-ctr">
+					<div class="content">
+						Are you sure you want to delete &quot;
+						<span class="item-name">item</span>
+						&quot; ?
+					</div>
+					<div class="btns-ctr">
+						<button class="confirm">Yes, Delete</button>
+						<button class="cancel">Cancel</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<main>
-		<table>
-			<thead>
-				<tr>
-					<th>Title</th>
-					<th>Author</th>
-					<th>No. pages</th>
-					<th>Is read</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<!-- <tr data-book-id="1">
+		<main>
+			<table>
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Author</th>
+						<th>No. pages</th>
+						<th>Is read</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- <tr data-book-id="1">
 					<td>book title here</td>
 					<td>book author here</td>
 					<td>111</td>
@@ -78,38 +80,83 @@
 						</button>
 					</td>
 				</tr> -->
-			</tbody>
-		</table>
+				</tbody>
+			</table>
 
-		<div class="collapse-ctr">
-			<button class="collapse-btn">New book</button>
-			<div class="collapsed-area form-ctr">
-				<form>
-					<label for="book-title">Title</label>
-					<input id="book-title" type="text" name="title" placeholder="Introduction to something" required>
-					<label for="book-author">Author</label>
-					<input id="book-author" type="text" name="author" placeholder="John Doe" required>
-					<label for="book-num-pages">No. pages</label>
-					<input id="book-num-pages" type="number" name="numPages" placeholder="300" min="1" required>
-					<label for="book-is-read">Is read</label>
-					<input id="book-is-read" type="checkbox" name="isRead">
-					<button type="submit">Add</button>
-				</form>
+			<div class="collapse-ctr">
+				<button class="collapse-btn">New book</button>
+				<div class="collapsed-area form-ctr">
+					<form novalidate>
+						<label for="book-title">Title</label>
+						<input
+							id="book-title"
+							type="text"
+							name="title"
+							data-field-name="title"
+							placeholder="Introduction to something"
+							maxlength="64"
+							pattern="^(\S|\S.*\S)$"
+							required
+							spellcheck
+						/>
+						<label for="book-author">Author</label>
+						<input
+							id="book-author"
+							type="text"
+							name="author"
+							data-field-name="author"
+							placeholder="John Doe"
+							required
+							spellcheck
+							pattern="[a-zA-Z.-][a-zA-Z. -]+[a-zA-Z.-]"
+							minlength="2"
+							maxlength="64"
+						/>
+						<label for="book-num-pages">No. pages</label>
+						<input
+							id="book-num-pages"
+							type="number"
+							name="numPages"
+							data-field-name="number of pages"
+							placeholder="300"
+							min="3"
+							max="5000"
+							pattern="\w+"
+							required
+						/>
+						<label for="book-is-read">Is read</label>
+						<input
+							id="book-is-read"
+							type="checkbox"
+							name="isRead"
+							data-field-name="is read"
+						/>
+						<button type="submit">Add</button>
+					</form>
+				</div>
 			</div>
-		</div>
+		</main>
 
-	</main>
-
-	<footer>Copyright &copy;<span class="copyright-year">2021</span>Ahmad Madany
-		<a href="https://github.com/madany01/library">
-			<svg aria-hidden="true" height="24" viewBox="0 0 16 16" version="1.1" width="24" data-view-component="true"
-				class="octicon octicon-mark-github">
-				<path fill-rule="evenodd"
-					d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
-				</path>
-			</svg>
-		</a>
-	</footer>
-</body>
-
+		<footer>
+			Copyright &copy;
+			<span class="copyright-year">2021</span>
+			Ahmad Madany
+			<a href="https://github.com/madany01/library">
+				<svg
+					aria-hidden="true"
+					height="24"
+					viewBox="0 0 16 16"
+					version="1.1"
+					width="24"
+					data-view-component="true"
+					class="octicon octicon-mark-github"
+				>
+					<path
+						fill-rule="evenodd"
+						d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+					></path>
+				</svg>
+			</a>
+		</footer>
+	</body>
 </html>

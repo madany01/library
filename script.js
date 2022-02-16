@@ -29,7 +29,7 @@ const modalConfirmBtn = modalCtr.querySelector('.confirm')
 const table = document.querySelector('table')
 
 const collapseBtn = document.querySelector('.collapse-btn')
-
+const form = document.querySelector('form')
 
 
 const books = new Map()
@@ -116,6 +116,25 @@ function deleteBook(book) {
 }
 
 
+function setValidationMassage(e) {
+	const input = e.target
+	const fieldName = e.target.dataset.fieldName
+	
+	if(input.validity.valueMissing) input.setCustomValidity(`${fieldName} field is required`)
+	else if(input.validity.tooShort) input.setCustomValidity(`too short ${fieldName} length, must be in range [${input.minLength},${input.maxLength}]`)
+	else if(input.validity.tooLong) input.setCustomValidity(`too long ${fieldName} length, must be in range [${input.minLength},${input.maxLength}]`)
+	else if(input.validity.rangeUnderflow) input.setCustomValidity(`too small ${fieldName} value, must in the range [${input.min}, ${input.max}]`)
+	else if(input.validity.rangeOverflow) input.setCustomValidity(`too big ${fieldName} value, must in the range [${input.min}, ${input.max}]`)
+	else if(input.validity.patternMismatch) input.setCustomValidity(`invalid ${fieldName} format`)
+}
+
+function validateForm() {
+	;[...form.querySelectorAll('input')].filter(input => input.willValidate).forEach(i => i.setCustomValidity(''))
+	return form.reportValidity()
+}
+
+
+
 
 
 function hideModal() {
@@ -133,35 +152,28 @@ function showModal(book) {
 	modalOverlay.classList.toggle('d-none')
 }
 
-
-
-
 // ... event listeners ...
 
 
 // collapse
 collapseBtn.addEventListener('click', e => e.target.classList.toggle('open'))
 
-
 // modals
 modalOverlay.addEventListener('click', hideModal)
-
 
 modalCtr.querySelectorAll('.close-icon, button.cancel').forEach(clickable => {
 	clickable.addEventListener('click', hideModal)
 })
-
 
 modalConfirmBtn.addEventListener('click', e => {
 	deleteBook(modalCtr.book)
 	hideModal()
 })
 
-
-// form
-document.querySelector('form').addEventListener('submit', e => {
+form.addEventListener('submit', e => {
 	e.preventDefault()
-
+	if(!validateForm()) return
+	
 	const bookData = Object.fromEntries(new FormData(e.target))
 	const book = addBookToLibrary(bookData)
 
@@ -174,7 +186,6 @@ document.querySelector('form').addEventListener('submit', e => {
 
 	collapseBtn.click()
 })
-
 
 // toggle/remove book
 table.addEventListener('click', e => {
@@ -206,5 +217,13 @@ table.addEventListener('click', e => {
 
 })
 
+;[...form.querySelectorAll('input')]
+	.filter(input => input.willValidate)
+	.forEach(input => {
+		input.addEventListener('invalid', setValidationMassage)
+		input.addEventListener('input', e => {
+			e.target.setCustomValidity('')
+		})
+	})
 
 addInitialBooks()
