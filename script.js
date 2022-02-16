@@ -207,6 +207,4 @@ table.addEventListener('click', e => {
 })
 
 
-
-document.querySelector('.copyright-year').textContent = new Date().getFullYear()
 addInitialBooks()
